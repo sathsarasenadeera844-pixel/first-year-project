@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MealMate.lk - Rider Registration</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element">🏍️</div>
+        <div class="floating-element">🚗</div>
+        <div class="floating-element">🚲</div>
+        <div class="floating-element">📦</div>
+    </div>
+
+    <header class="header">
+        <div class="logo">
+            <span class="meal">Meal</span><span class="mate">mate</span><span class="chef-hat">👨‍🍳</span><span style="color: #666;">.lk</span>
+        </div>
+        <nav class="nav">
+            <a href="#home">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#about">About us</a>
+            <button class="login-btn">Log in</button>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="hero-section">
+            <h1>As a Rider</h1>
+            <p>Let your bike take part in our fast delivery network.</p>
+        </div>
+
+        <div class="form-container">
+            <div class="success-message" id="successMessage">
+                🚀 Registration submitted successfully! We'll contact you soon to get you started!
+            </div>
+
+            <form id="riderForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vehicleType">Vehicle Type:</label>
+                        <select id="vehicleType" name="vehicleType" required>
+                            <option value="">Select your vehicle</option>
+                            <option value="motorcycle">Motorcycle</option>
+                            <option value="scooter">Scooter</option>
+                            <option value="bicycle">Bicycle</option>
+                            <option value="car">Car</option>
+                            <option value="van">Van</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="licenseId">NIC/ID or Driver's License:</label>
+                        <input type="text" id="licenseId" name="licenseId" placeholder="Enter NIC or License number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emergencyContact">Emergency Contact:</label>
+                        <input type="tel" id="emergencyContact" name="emergencyContact" placeholder="Emergency contact number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactInfo">Contact Number or E-mail:</label>
+                        <input type="text" id="contactInfo" name="contactInfo" placeholder="Phone number or email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profilePhoto">Profile Photo</label>
+                        <div class="photo-upload" id="photoUpload">
+                            <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*">
+                            <div class="upload-icon">📷</div>
+                            <div class="upload-text">
+                                <strong>Click to upload</strong> or drag and drop<br>
+                                JPG, PNG up to 5MB
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="currentAddress">Address / Current Location:</label>
+                        <textarea id="currentAddress" name="currentAddress" placeholder="Enter your full address" rows="3" required></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="register-btn">Register as Rider</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Form submission
+        document.getElementById('riderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            
+            // Smooth scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Optional: Reset form after showing success
+            setTimeout(() => {
+                this.reset();
+                document.getElementById('photoUpload').innerHTML = `
+                    <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*">
+                    <div class="upload-icon">📷</div>
+                    <div class="upload-text">
+                        <strong>Click to upload</strong> or drag and drop<br>
+                        JPG, PNG up to 5MB
+                    </div>
+                `;
+            }, 2000);
+        });
+
+        // Photo upload functionality
+        const photoUpload = document.getElementById('photoUpload');
+        const photoInput = document.getElementById('profilePhoto');
+
+        photoUpload.addEventListener('click', () => {
+            photoInput.click();
+        });
+
+        photoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    photoUpload.innerHTML = `
+                        <img src="${e.target.result}" alt="Profile Preview" class="photo-preview">
+                        <div class="upload-text">
+                            <strong>Click to change photo</strong><br>
+                            ${file.name}
+                        </div>
+                        <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*">
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Drag and drop functionality
+        photoUpload.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+
+        photoUpload.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+        });
+
+        photoUpload.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                photoInput.files = files;
+                photoInput.dispatchEvent(new Event('change'));
+            }
+        });
+
+        // Phone number formatting for emergency contact
+        document.getElementById('emergencyContact').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                if (value.length <= 3) {
+                    value = value;
+                } else if (value.length <= 6) {
+                    value = value.slice(0, 3) + '-' + value.slice(3);
+                } else {
+                    value = value.slice(0, 3) + '-' + value.slice(3, 6) + '-' + value.slice(6, 10);
+                }
+            }
+            e.target.value = value;
+        });
+
+        // Input focus effects
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
