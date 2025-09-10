@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mealmate.lk - Order Successful</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ========== HEADER SECTION ========== -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="chef-icon">👨‍🍳</span>
+                <span class="meal">Meal</span><span class="mate">mate</span><span class="lk">.lk</span>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Search for restaurants or dishes..." readonly>
+                <button type="button" disabled>🔍</button>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#" onclick="goHome()">Home</a>
+                <a href="#" onclick="showNotification('Orders clicked')">Orders</a>
+                <a href="#" onclick="showNotification('Offers clicked')">Offers</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="icon-btn favorites" onclick="showNotification('Favorites clicked')">❤️</button>
+                <button class="icon-btn cart" onclick="showNotification('Cart clicked')">🛒</button>
+                <button class="icon-btn profile" onclick="showNotification('Profile clicked')">👤</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== MAIN CONTENT SECTION ========== -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Success Modal/Card -->
+            <div class="success-overlay" id="successOverlay">
+                <div class="success-modal" id="successModal">
+                    
+                    <!-- Success Icon -->
+                    <div class="success-icon">
+                        <div class="check-circle">
+                            <svg class="checkmark" viewBox="0 0 24 24">
+                                <path fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Success Content -->
+                    <div class="success-content">
+                        <h1 class="success-title">Success!</h1>
+                        <p class="success-message">
+                            Your payment was successful<br>
+                            A receipt for this purchase has been<br>
+                            sent to your email.
+                        </p>
+                    </div>
+                    
+                    <!-- Action Button -->
+                    <button class="go-back-btn" onclick="goBack()">Go Back</button>
+                    
+                </div>
+            </div>
+            
+            <!-- Background Content (blurred) -->
+            <div class="background-content">
+                <div class="placeholder-content">
+                    <h2>Your Order is Being Prepared!</h2>
+                    <p>Thank you for choosing Mealmate.lk</p>
+                    <div class="order-details">
+                        <div class="detail-item">
+                            <span>Order ID:</span>
+                            <span>#ML2025001</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Estimated Delivery:</span>
+                            <span>25-35 minutes</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Total Amount:</span>
+                            <span>Rs.1000.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========== JAVASCRIPT SECTION ========== -->
+    <script>
+        // ===== UTILITY FUNCTIONS =====
+        function showNotification(message) {
+            alert(message);
+        }
+
+        // ===== SUCCESS MODAL ANIMATIONS =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show success modal with animation
+            setTimeout(() => {
+                const modal = document.getElementById('successModal');
+                modal.classList.add('show');
+                
+                // Animate checkmark
+                setTimeout(() => {
+                    const checkmark = document.querySelector('.checkmark');
+                    checkmark.style.strokeDasharray = '100';
+                    checkmark.style.strokeDashoffset = '0';
+                }, 300);
+            }, 500);
+
+            // Auto-redirect after 5 seconds if user doesn't interact
+            setTimeout(() => {
+                if (document.getElementById('successOverlay').style.display !== 'none') {
+                    goBack();
+                }
+            }, 5000);
+        });
+
+        // ===== NAVIGATION FUNCTIONS =====
+        function goBack() {
+            const modal = document.getElementById('successModal');
+            const overlay = document.getElementById('successOverlay');
+            
+            // Animate out
+            modal.classList.add('fade-out');
+            
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                // In a real app, this would redirect to the home page or orders page
+                window.history.back();
+            }, 300);
+        }
+
+        function goHome() {
+            goBack();
+        }
+
+        // ===== KEYBOARD ACCESSIBILITY =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                goBack();
+            }
+            if (e.key === 'Escape') {
+                goBack();
+            }
+        });
+
+        // ===== CLICK OUTSIDE TO CLOSE =====
+        document.getElementById('successOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                goBack();
+            }
+        });
+
+        // ===== PREVENT ACCIDENTAL NAVIGATION =====
+        window.addEventListener('beforeunload', function(e) {
+            // Only show if modal is still visible
+            if (document.getElementById('successOverlay').style.display !== 'none') {
+                e.preventDefault();
+                e.returnValue = '';
+                return '';
+            }
+        });
+    </script>
+</body>
+</html>

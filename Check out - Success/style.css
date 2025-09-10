@@ -1,0 +1,455 @@
+/* ========================================
+   MEALMATE.LK - SUCCESS PAGE
+   CSS STYLESHEET
+   ======================================== */
+
+/* ========== GLOBAL STYLES ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+    overflow: hidden; /* Prevent scrolling when modal is open */
+}
+
+/* ========== CONTAINER LAYOUT ========== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ========== HEADER SECTION ========== */
+.header {
+    background: #e8e9ea;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+/* ----- Logo Styling ----- */
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chef-icon {
+    font-size: 24px;
+}
+
+.logo .meal {
+    color: #ff6b35;
+}
+
+.logo .mate {
+    color: #4caf50;
+}
+
+.logo .lk {
+    color: #2196f3;
+}
+
+/* ----- Search Bar (Disabled State) ----- */
+.search-bar {
+    flex: 1;
+    max-width: 400px;
+    position: relative;
+    opacity: 0.7;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 50px 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+    background: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.search-bar button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ccc;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: not-allowed;
+    font-size: 16px;
+    color: white;
+}
+
+/* ----- Navigation Links ----- */
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ff6b35;
+}
+
+/* ----- Header Actions ----- */
+.header-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.icon-btn:hover {
+    background: rgba(255, 107, 53, 0.1);
+}
+
+/* ========== MAIN CONTENT SECTION ========== */
+.main-content {
+    position: relative;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========== SUCCESS MODAL OVERLAY ========== */
+.success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeInOverlay 0.3s ease-out;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ========== SUCCESS MODAL ========== */
+.success-modal {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+    transform: scale(0.7) translateY(50px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.success-modal.show {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.success-modal.fade-out {
+    transform: scale(0.9) translateY(-20px);
+    opacity: 0;
+    transition: all 0.3s ease-in;
+}
+
+/* ========== SUCCESS ICON ========== */
+.success-icon {
+    margin-bottom: 25px;
+}
+
+.check-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(231, 76, 60, 0.3);
+    animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ----- Checkmark Animation ----- */
+.checkmark {
+    width: 40px;
+    height: 40px;
+    stroke-dasharray: 0;
+    stroke-dashoffset: 100;
+    transition: stroke-dashoffset 0.6s ease-in-out;
+    transition-delay: 0.3s;
+}
+
+/* ========== SUCCESS CONTENT ========== */
+.success-content {
+    margin-bottom: 30px;
+}
+
+.success-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #e74c3c;
+    margin-bottom: 15px;
+    animation: slideInUp 0.5s ease-out;
+    animation-delay: 0.4s;
+    animation-fill-mode: both;
+}
+
+.success-message {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+    animation: slideInUp 0.5s ease-out;
+    animation-delay: 0.6s;
+    animation-fill-mode: both;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== GO BACK BUTTON ========== */
+.go-back-btn {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    animation: slideInUp 0.5s ease-out;
+    animation-delay: 0.8s;
+    animation-fill-mode: both;
+    min-width: 120px;
+}
+
+.go-back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+.go-back-btn:active {
+    transform: translateY(0);
+}
+
+/* ========== BACKGROUND CONTENT ========== */
+.background-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #666;
+    z-index: 1;
+    filter: blur(3px);
+    opacity: 0.5;
+}
+
+.placeholder-content h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.placeholder-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.order-details {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+    font-weight: 600;
+    color: #e74c3c;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-links {
+        order: -1;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .search-bar {
+        max-width: none;
+        width: 100%;
+    }
+
+    .success-modal {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+
+    .success-title {
+        font-size: 28px;
+    }
+
+    .success-message {
+        font-size: 14px;
+    }
+
+    .placeholder-content h2 {
+        font-size: 22px;
+    }
+
+    .order-details {
+        max-width: 300px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .success-modal {
+        width: 95%;
+        padding: 25px 15px;
+    }
+
+    .check-circle {
+        width: 60px;
+        height: 60px;
+    }
+
+    .checkmark {
+        width: 30px;
+        height: 30px;
+    }
+
+    .success-title {
+        font-size: 24px;
+    }
+
+    .go-back-btn {
+        padding: 10px 25px;
+        font-size: 14px;
+    }
+}
+
+/* ========== ACCESSIBILITY ========== */
+@media (prefers-reduced-motion: reduce) {
+    .success-modal,
+    .check-circle,
+    .success-title,
+    .success-message,
+    .go-back-btn {
+        animation: none;
+        transition: none;
+    }
+    
+    .success-modal.show {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ========== FOCUS STYLES ========== */
+.go-back-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
+}
+
+/* ========== HIGH CONTRAST MODE ========== */
+@media (prefers-contrast: high) {
+    .success-modal {
+        border: 2px solid #333;
+    }
+    
+    .check-circle {
+        background: #000;
+    }
+    
+    .success-title {
+        color: #000;
+    }
+}
